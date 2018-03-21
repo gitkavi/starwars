@@ -23,37 +23,24 @@
 <body>
     <div class="container-fluid">
         <div class="col-md-12 header">Star Wars RPG!</div>
-        <div class="row">
+        <div class="caption" id="players_caption">Players</div>
+        <div class="row" id="player-container">
+            <div id="player0" class="col-md-3 figure">
+
+            </div>
             <div id="player1" class="col-md-3 figure">
-                <div id="player1-name" class="name"></div>
-                <img id="player1-img" class="img-display" src="">
-                <div class="health">
-                    <span id="player1-hp"></span>
-                </div>
+
             </div>
             <div id="player2" class="col-md-3 figure">
-                <div id="player2-name" class="name"></div>
-                <img id="player2-img" class="img-display" src="">
-                <div class="health">
-                    <span id="player2-hp"></span>
-                </div>
+
             </div>
             <div id="player3" class="col-md-3 figure">
-                <div id="player3-name" class="name"></div>
-                <img id="player3-img" class="img-display" src="">
-                <div class="health">
-                    <span id="player3-hp"></span>
-                </div>
-            </div>
-            <div id="player4" class="col-md-3 figure">
-                <div id="player4-name" class="name"></div>
-                <img id="player4-img" class="img-display" src="">
-                <div class="health">
-                    <span id="player4-hp"></span>
-                </div>
             </div>
         </div>
+        <div class="caption" id="enemys_caption">Enemies Available to Attack</div>
         <div id="enemies" class="row">
+            <div id="enemy0" class="col-md-3 figure">
+            </div>
             <div id="enemy1" class="col-md-3 figure">
 
             </div>
@@ -64,6 +51,23 @@
 
             </div>
         </div>
+        <div class="caption" id="defenders_caption">Defender</div>
+        <div id="defenders" class="row">
+            <div id="defendent0" class="col-md-3 figure">
+
+            </div>
+            <div id="defendent1" class="col-md-3 figure">
+
+            </div>
+            <div id="defendent2" class="col-md-3 figure">
+
+            </div>
+            <div id="defendent3" class="col-md-3 figure">
+
+            </div>
+        </div>
+        <div class="caption">Fight Section</div>
+        <div><button id="attack">Attack</button></div>
     </div>
     <script src="assets/javascript/game.js"></script>
 </body>

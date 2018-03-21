@@ -1,71 +1,203 @@
 $(document).ready(function () {
-    var player1 = {
-        name: "Darth Vader",
-        healthPoint: 110,
-        activePoint: 8,
-        counterActivePoint: 0,
-        image:'assets/images/darth.jpg'
-    };
-    var player2 = {
-        name: "Princess Leia",
-        healthPoint: 150,
-        activePoint: 5,
-        counterActivePoint: 0,
-        image:'assets/images/leia.jpg'
-    };
-    var player3 = {
-        name: "Luke Skywalker",
-        healthPoint: 200,
-        activePoint: 10,
-        counterActivePoint: 0,
-        image:'assets/images/luke.jpg'
-    };
-    var player4 = {
-        name: "Chewbacca",
-        healthPoint: 180,
-        activePoint: 9,
-        counterActivePoint: 0,
-        image:'assets/images/Chewbacca.png'
-    };
+    var players = [
+        {
+            name: "Darth Vader",
+            healthPoint: 110,
+            attackPoint: 8,
+            counterAttackPoint: 0,
+            image: 'assets/images/darth.jpg'
+        },
+        {
+            name: "Princess Leia",
+            healthPoint: 150,
+            attackPoint: 25,
+            counterAttackPoint: 0,
+            image: 'assets/images/leia.jpg'
+        },
+        {
+            name: "Luke Skywalker",
+            healthPoint: 200,
+            attackPoint: 10,
+            counterAttackPoint: 0,
+            image: 'assets/images/luke.jpg'
+        },
+        {
+            name: "Chewbacca",
+            healthPoint: 180,
+            attackPoint: 15,
+            counterAttackPoint: 0,
+            image: 'assets/images/Chewbacca.png'
+        }];
 
-    function reset(){
-        
-        $("#player1-name").html(player1.name);
-        $("#player2-name").html(player2.name);
-        $("#player3-name").html(player3.name);
-        $("#player4-name").html(player4.name);
-        $("#player1-img").attr('src', player1.image);
-        $("#player2-img").attr('src', player2.image);
-        $("#player3-img").attr('src', player3.image);
-        $("#player4-img").attr('src', player4.image);
-        $("#player1-hp").html(player1.healthPoint);
-        $("#player2-hp").html(player2.healthPoint);
-        $("#player3-hp").html(player3.healthPoint);
-        $("#player4-hp").html(player4.healthPoint);
+    var isFirstClick = true;
+
+    function reset() {
+        for (var i = 0; i < 4; i++) {
+
+            var player = "player" + i;
+
+            //creates a div element with class as name, id as player0-name and sets the value
+            var playerName = $("<div>");
+            playerName.attr('id', player + '-name');
+            playerName.attr('class', 'name');
+            playerName.html(players[i].name);
+            $("#" + player).append(playerName);
+
+            //creates an img element with class as img-display, id as player0-img and sets the value
+            var playerImage = $("<img>");
+            playerImage.attr('id', player + '-img');
+            playerImage.attr('class', 'img-display');
+            playerImage.attr('src', players[i].image);
+            $("#" + player).append(playerImage);
+
+            //creates an img element with class as health, id as player0-hp and sets the value
+            var playerHealth = $("<div>");
+            playerHealth.attr('id', player + '-hp');
+            playerHealth.attr('class', 'health');
+            playerHealth.html(players[i].healthPoint);
+            $("#" + player).append(playerHealth);
+            $("#" + player).attr('data-index', i);
+
+            //Show the created divs by calling the parent div element ex:player0
+            $("#" + player).show();
+
+            var enemy = "enemy" + i;
+
+            var enemyName = $("<div>");
+            enemyName.attr('id', enemy + '-name');
+            enemyName.attr('class', 'name');
+            enemyName.html(players[i].name);
+            $("#" + enemy).append(enemyName);
+
+            var enemyImage = $("<img>");
+            enemyImage.attr('id', enemy + '-img');
+            enemyImage.attr('class', 'img-display');
+            enemyImage.attr('src', players[i].image);
+            $("#" + enemy).append(enemyImage);
+
+            var enemyHealth = $("<div>");
+            enemyHealth.attr('id', enemy + '-hp');
+            enemyHealth.attr('class', 'health');
+            enemyHealth.html(players[i].healthPoint);
+            $("#" + enemy).append(enemyHealth);
+            $("#" + enemy).attr('data-index', i);
+
+
+            $("#" + enemy).hide();
+
+            var defendent = "defendent" + i;
+
+            var defendentName = $("<div>");
+            defendentName.attr('id', defendent + '-name');
+            defendentName.attr('class', 'name');
+            defendentName.html(players[i].name);
+            $("#" + defendent).append(defendentName);
+
+            var defendentImage = $("<img>");
+            defendentImage.attr('id', defendent + '-img');
+            defendentImage.attr('class', 'img-display');
+            defendentImage.attr('src', players[i].image);
+            $("#" + defendent).append(defendentImage);
+
+            var defendentHealth = $("<div>");
+            defendentHealth.attr('id', defendent + '-hp');
+            defendentHealth.attr('class', 'health');
+            defendentHealth.html(players[i].healthPoint);
+            $("#" + defendent).append(defendentHealth);
+            $("#" + defendent).attr('data-index', i);
+
+
+            $("#" + defendent).hide();
+        }
+
+        $("#players_caption").show();
+        $("#enemys_caption").hide();
+        $("#defenders_caption").hide();
     }
 
     reset();
 
-    $("#player1-img").on("click", function(){
-        console.log("Clicked on player1");
-        console.log(player1);
-        $("#player1-name").html(player1.name);
-        $("#player1-img").attr('src', player1.image);
-        $("#player1-hp").html(player1.healthPoint);
-        $("#player2").hide();
-        $("#player3").hide();
-        $("#player4").hide();
+    var player = ['#player0', '#player1', '#player2', '#player3'];
+    var enemy = ['#enemy0', '#enemy1', '#enemy2', '#enemy3'];
+    var defendentArray = [];
+    var defendentArrayLength = 0;
 
-        // Move all the other players to enemy's row
-        $("#enemy1").html("<div id='enemy1-name' class='name'>"+player2.name+"</div>");
-        $("#enemy1").append("<img id='enemy1-img' class='img-display' src='"+player2.image+"'>");
-        $("#enemy1").append("<div id='enemy1-hp' class='health'>"+player2.healthPoint+"</div>");
-        $("#enemy2").html("<div id='enemy1-name' class='name'>"+player3.name+"</div>");
-        $("#enemy2").append("<img id='enemy1-img' class='img-display' src='"+player3.image+"'>");
-        $("#enemy2").append("<div id='enemy1-hp' class='health'>"+player3.healthPoint+"</div>");
-        $("#enemy3").html("<div id='enemy1-name' class='name'>"+player4.name+"</div>");
-        $("#enemy3").append("<img id='enemy1-img' class='img-display' src='"+player4.image+"'>");
-        $("#enemy3").append("<div id='enemy1-hp' class='health'>"+player4.healthPoint+"</div>");
-    });
+    for (var i = 0; i < 4; i++) {
+        // var enemy = "enemy" + i;
+        selectEnemy(i);
+    }
 
+    function selectEnemy(i) {
+        $("#player" + i).on("click", function () {
+            $("#enemys_caption").show();
+            console.log("inside selectEnemy");
+            for (var j = 0; j < 4; j++) {
+                console.log("inside the j loop");
+                console.log("i: " + i);
+                console.log("j: " + j);
+                if (i === j) {
+                    console.log("inside res == i");
+                    $(player[j]).show();
+                    $(enemy[j]).hide();
+                }
+                else {
+                    $(player[j]).hide();
+                    $(enemy[j]).show();
+                    defendentArray.push("#defendent"+j);
+                    defendentArrayLength = defendentArray.length;
+                }
+            }
+        console.log("defendentArrayLength inside: "+defendentArrayLength);
+        });
+    }
+    console.log(defendentArray);
+    console.log("defendentArrayLength outside: "+defendentArrayLength);
+
+    // for (var i = 0; i < defendent.length; i++) {
+    //     console.log("inside selectDefendent for loop");
+    //     selectDefendent(i);
+    // }
+
+    function selectDefendent(i) {
+        console.log("inside selectDefendent");
+        $("#enemy" + i).on("click", function () {
+            $("#defenders_caption").show();
+            console.log("inside selectDefendent");
+            for (var j = 0; j < 3; j++) {
+                console.log("inside the j loop");
+                console.log("i: " + i);
+                console.log("j: " + j);
+                if (i === j) {
+                    $(enemy[j]).hide();
+                    $(defendent[j]).show();
+                }
+                else {
+                    $(enemy[j]).show();
+                    $(defendent[j]).hide();
+                }
+            }
+        });
+
+    }
+
+
+    // $("#attack").click(function () {
+    //     console.log(player);
+    //     var attackPower = player.attackPoint;
+    //     var counterAttackPower = defender.attackPoint;
+
+    //     if (isFirstClick) {
+    //         player.healthPoint = player.healthPoint - defender.attackPoint;
+    //         defender.healthPoint = defender.healthPoint - player.attackPoint;
+    //         $("#")
+    //     }
+
+    //     isFirstClick = false;
+    //     if (!isFirstClick) {
+    //         attackPower += player.attackPoint;
+    //     }
+
+
+
+    // });
 });
